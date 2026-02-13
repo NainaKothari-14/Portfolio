@@ -131,6 +131,9 @@ function SkillCard({ label, items, index }) {
       <div className="skill-card-orb-2 absolute -bottom-20 -left-20 h-48 w-48 rounded-full blur-3xl transition-all duration-700 group-hover:scale-150" />
       <div className="skill-card-orb-3 absolute left-1/2 top-1/2 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl transition-all duration-700 group-hover:opacity-100" />
 
+      {/* Glassmorphism overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] via-white/[0.02] to-transparent"></div>
+
       {/* Content */}
       <div className="relative z-10">
         {/* Enhanced Header */}
@@ -211,6 +214,9 @@ function SkillCard({ label, items, index }) {
                   e.currentTarget.style.boxShadow = `0 0 15px ${brandColor}20, 0 0 30px ${brandColor}10`; // Back to default glow
                 }}
               >
+                {/* Glassmorphism overlay for skill badges */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent"></div>
+
                 {/* Default hover glow effect (subtle) */}
                 <div 
                   className="absolute inset-0 blur-xl transition-opacity duration-300"
@@ -352,32 +358,40 @@ export default function Skills() {
       </div>
 
       <style jsx>{`
-        /* Enhanced theme-aware styles using CSS variables */
+        /* Enhanced glassmorphism theme-aware styles */
         .skill-card {
-          border-color: var(--border-color, rgb(39 39 42));
-          background: var(--card-bg, linear-gradient(135deg, rgb(9 9 11 / 0.95), rgb(24 24 27 / 0.7), rgb(9 9 11 / 0.95)));
-          backdrop-filter: blur(12px);
+          border-color: var(--border-color, rgba(255, 255, 255, 0.1));
+          background: var(--card-bg, 
+            linear-gradient(135deg, 
+              rgba(255, 255, 255, 0.05), 
+              rgba(255, 255, 255, 0.02)
+            )
+          );
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
           /* Default card glow */
           box-shadow: var(--card-default-shadow, 
-            0 0 30px rgba(59, 130, 246, 0.12), 
-            0 0 60px rgba(59, 130, 246, 0.06),
-            0 10px 40px rgba(0, 0, 0, 0.2)
+            0 0 30px rgba(59, 130, 246, 0.15), 
+            0 0 60px rgba(59, 130, 246, 0.08),
+            0 10px 40px rgba(0, 0, 0, 0.3),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.05)
           );
         }
 
         .skill-card:hover {
           box-shadow: var(--card-hover-shadow, 
-            0 0 70px rgba(59, 130, 246, 0.4), 
-            0 0 140px rgba(59, 130, 246, 0.2),
-            0 20px 60px rgba(0, 0, 0, 0.4)
+            0 0 70px rgba(59, 130, 246, 0.5), 
+            0 0 140px rgba(59, 130, 246, 0.25),
+            0 20px 60px rgba(0, 0, 0, 0.4),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.1)
           );
           transform: translateY(-12px) scale(1.02);
-          border-color: rgba(59, 130, 246, 0.6);
+          border-color: rgba(59, 130, 246, 0.4);
         }
 
         .skill-card-orb-1 {
-          background: var(--orb-1-bg, radial-gradient(circle, rgb(59 130 246 / 0.18), transparent));
-          opacity: 0.5; /* Default visible */
+          background: var(--orb-1-bg, radial-gradient(circle, rgb(59 130 246 / 0.25), transparent));
+          opacity: 0.6; /* Default visible */
         }
 
         .skill-card:hover .skill-card-orb-1 {
@@ -385,8 +399,8 @@ export default function Skills() {
         }
 
         .skill-card-orb-2 {
-          background: var(--orb-2-bg, radial-gradient(circle, rgb(6 182 212 / 0.18), transparent));
-          opacity: 0.5; /* Default visible */
+          background: var(--orb-2-bg, radial-gradient(circle, rgb(6 182 212 / 0.25), transparent));
+          opacity: 0.6; /* Default visible */
         }
 
         .skill-card:hover .skill-card-orb-2 {
@@ -394,37 +408,49 @@ export default function Skills() {
         }
 
         .skill-card-orb-3 {
-          background: var(--orb-3-bg, radial-gradient(circle, rgb(147 51 234 / 0.12), transparent));
-          opacity: 0.3; /* Default subtle */
+          background: var(--orb-3-bg, radial-gradient(circle, rgb(147 51 234 / 0.18), transparent));
+          opacity: 0.4; /* Default subtle */
         }
 
         .skill-card-icon {
-          border-color: var(--icon-border, rgb(63 63 70));
-          background: var(--icon-bg, linear-gradient(135deg, rgb(24 24 27 / 0.9), rgb(39 39 42 / 0.7)));
+          border-color: var(--icon-border, rgba(255, 255, 255, 0.1));
+          background: var(--icon-bg, 
+            linear-gradient(135deg, 
+              rgba(255, 255, 255, 0.08), 
+              rgba(255, 255, 255, 0.03)
+            )
+          );
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
         }
 
         .skill-card:hover .skill-card-icon {
-          border-color: var(--icon-hover-border, rgb(96 165 250));
-          background: var(--icon-hover-bg, linear-gradient(135deg, rgb(59 130 246 / 0.25), rgb(6 182 212 / 0.15)));
+          border-color: var(--icon-hover-border, rgba(96, 165, 250, 0.5));
+          background: var(--icon-hover-bg, 
+            linear-gradient(135deg, 
+              rgba(59, 130, 246, 0.2), 
+              rgba(6, 182, 212, 0.1)
+            )
+          );
         }
 
         .skill-card-icon-inner {
-          color: var(--icon-color, rgb(96 165 250));
+          color: var(--icon-color, rgb(147 197 253));
           filter: drop-shadow(0 0 8px currentColor);
         }
 
         .skill-card-title {
-          color: var(--title-color, rgb(244 244 245));
-          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+          color: var(--title-color, rgb(255 255 255));
+          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
 
         .skill-card:hover .skill-card-title {
           color: var(--title-hover-color, rgb(255 255 255));
-          text-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
+          text-shadow: 0 0 20px rgba(96, 165, 250, 0.6);
         }
 
         .skill-card-subtitle {
-          color: var(--subtitle-color, rgb(113 113 122));
+          color: var(--subtitle-color, rgb(161 161 170));
         }
 
         .skill-card:hover .skill-card-subtitle {
@@ -432,40 +458,76 @@ export default function Skills() {
         }
 
         .skill-card-badge {
-          background: var(--badge-bg, linear-gradient(135deg, rgb(39 39 42 / 0.7), rgb(24 24 27 / 0.5)));
-          color: var(--badge-color, rgb(161 161 170));
-          border: 1px solid rgb(63 63 70);
+          background: var(--badge-bg, 
+            linear-gradient(135deg, 
+              rgba(255, 255, 255, 0.08), 
+              rgba(255, 255, 255, 0.03)
+            )
+          );
+          color: var(--badge-color, rgb(212 212 216));
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
         }
 
         .skill-card:hover .skill-card-badge {
-          background: var(--badge-hover-bg, linear-gradient(135deg, rgb(59 130 246 / 0.35), rgb(6 182 212 / 0.25)));
-          color: var(--badge-hover-color, rgb(147 197 253));
-          border-color: rgb(96 165 250);
+          background: var(--badge-hover-bg, 
+            linear-gradient(135deg, 
+              rgba(59, 130, 246, 0.25), 
+              rgba(6, 182, 212, 0.15)
+            )
+          );
+          color: var(--badge-hover-color, rgb(255 255 255));
+          border-color: rgba(96, 165, 250, 0.4);
         }
 
         .skill-card-divider {
-          background: var(--divider-bg, linear-gradient(to right, transparent, rgb(63 63 70 / 0.5), transparent));
+          background: var(--divider-bg, 
+            linear-gradient(to right, 
+              transparent, 
+              rgba(255, 255, 255, 0.1), 
+              transparent
+            )
+          );
           /* Default subtle glow */
-          box-shadow: 0 0 10px rgba(59, 130, 246, 0.15);
+          box-shadow: 0 0 10px rgba(59, 130, 246, 0.2);
         }
 
         .skill-card:hover .skill-card-divider {
-          background: var(--divider-hover-bg, linear-gradient(to right, transparent, rgb(96 165 250 / 0.5), transparent));
-          box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+          background: var(--divider-hover-bg, 
+            linear-gradient(to right, 
+              transparent, 
+              rgba(96, 165, 250, 0.5), 
+              transparent
+            )
+          );
+          box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
         }
 
         .skill-badge {
-          border-color: var(--skill-border, rgb(39 39 42));
-          background: var(--skill-bg, linear-gradient(135deg, rgb(24 24 27 / 0.6), rgb(39 39 42 / 0.4)));
+          border-color: var(--skill-border, rgba(255, 255, 255, 0.08));
+          background: var(--skill-bg, 
+            linear-gradient(135deg, 
+              rgba(255, 255, 255, 0.05), 
+              rgba(255, 255, 255, 0.02)
+            )
+          );
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
         }
 
         .skill-badge:hover {
-          border-color: var(--skill-hover-border, rgb(96 165 250 / 0.7));
-          background: var(--skill-hover-bg, linear-gradient(135deg, rgb(59 130 246 / 0.2), rgb(6 182 212 / 0.15)));
+          border-color: var(--skill-hover-border, rgba(96, 165, 250, 0.5));
+          background: var(--skill-hover-bg, 
+            linear-gradient(135deg, 
+              rgba(59, 130, 246, 0.15), 
+              rgba(6, 182, 212, 0.08)
+            )
+          );
         }
 
         .skill-badge-text {
-          color: var(--skill-text, rgb(212 212 216));
+          color: var(--skill-text, rgb(228 228 231));
         }
 
         .skill-badge:hover .skill-badge-text {
@@ -477,31 +539,31 @@ export default function Skills() {
           background: var(--corner-line-bg, linear-gradient(to left, rgb(96 165 250), transparent));
         }
 
-        /* Light theme overrides */
+        /* Light theme overrides - lighter glass effect */
         :global([data-theme="light"]) .skill-card {
-          --border-color: rgb(228 228 231);
-          --card-bg: linear-gradient(135deg, rgb(255 255 255 / 0.95), rgb(250 250 250 / 0.8), rgb(255 255 255 / 0.95));
-          --card-default-shadow: 0 0 30px rgba(59, 130, 246, 0.08), 0 0 60px rgba(59, 130, 246, 0.04), 0 10px 40px rgba(0, 0, 0, 0.08);
-          --card-hover-shadow: 0 0 70px rgba(59, 130, 246, 0.25), 0 0 140px rgba(59, 130, 246, 0.12), 0 20px 60px rgba(0, 0, 0, 0.12);
+          --border-color: rgba(0, 0, 0, 0.1);
+          --card-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5));
+          --card-default-shadow: 0 0 30px rgba(59, 130, 246, 0.12), 0 0 60px rgba(59, 130, 246, 0.06), 0 10px 40px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+          --card-hover-shadow: 0 0 70px rgba(59, 130, 246, 0.3), 0 0 140px rgba(59, 130, 246, 0.15), 0 20px 60px rgba(0, 0, 0, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.9);
         }
 
         :global([data-theme="light"]) .skill-card-orb-1 {
-          --orb-1-bg: radial-gradient(circle, rgb(59 130 246 / 0.12), transparent);
+          --orb-1-bg: radial-gradient(circle, rgb(59 130 246 / 0.15), transparent);
         }
 
         :global([data-theme="light"]) .skill-card-orb-2 {
-          --orb-2-bg: radial-gradient(circle, rgb(6 182 212 / 0.12), transparent);
+          --orb-2-bg: radial-gradient(circle, rgb(6 182 212 / 0.15), transparent);
         }
 
         :global([data-theme="light"]) .skill-card-orb-3 {
-          --orb-3-bg: radial-gradient(circle, rgb(147 51 234 / 0.1), transparent);
+          --orb-3-bg: radial-gradient(circle, rgb(147 51 234 / 0.12), transparent);
         }
 
         :global([data-theme="light"]) .skill-card-icon {
-          --icon-border: rgb(212 212 216);
-          --icon-bg: linear-gradient(135deg, rgb(244 244 245 / 0.9), rgb(228 228 231 / 0.7));
+          --icon-border: rgba(0, 0, 0, 0.1);
+          --icon-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6));
           --icon-hover-border: rgb(59 130 246);
-          --icon-hover-bg: linear-gradient(135deg, rgb(59 130 246 / 0.25), rgb(6 182 212 / 0.18));
+          --icon-hover-bg: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(6, 182, 212, 0.15));
         }
 
         :global([data-theme="light"]) .skill-card-icon-inner {
@@ -509,7 +571,7 @@ export default function Skills() {
         }
 
         :global([data-theme="light"]) .skill-card-title {
-          --title-color: rgb(24 24 27);
+          --title-color: rgb(0 0 0);
           --title-hover-color: rgb(0 0 0);
         }
 
@@ -519,26 +581,26 @@ export default function Skills() {
         }
 
         :global([data-theme="light"]) .skill-card-badge {
-          --badge-bg: linear-gradient(135deg, rgb(244 244 245 / 0.9), rgb(228 228 231 / 0.7));
-          --badge-color: rgb(113 113 122);
-          --badge-hover-bg: linear-gradient(135deg, rgb(59 130 246 / 0.25), rgb(6 182 212 / 0.18));
-          --badge-hover-color: rgb(37 99 235);
+          --badge-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6));
+          --badge-color: rgb(63 63 70);
+          --badge-hover-bg: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(6, 182, 212, 0.15));
+          --badge-hover-color: rgb(0 0 0);
         }
 
         :global([data-theme="light"]) .skill-card-divider {
-          --divider-bg: linear-gradient(to right, transparent, rgb(212 212 216), transparent);
+          --divider-bg: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.1), transparent);
           --divider-hover-bg: linear-gradient(to right, transparent, rgb(59 130 246 / 0.4), transparent);
         }
 
         :global([data-theme="light"]) .skill-badge {
-          --skill-border: rgb(228 228 231);
-          --skill-bg: linear-gradient(135deg, rgb(255 255 255 / 0.9), rgb(250 250 250 / 0.7));
-          --skill-hover-border: rgb(59 130 246 / 0.7);
-          --skill-hover-bg: linear-gradient(135deg, rgb(59 130 246 / 0.15), rgb(6 182 212 / 0.1));
+          --skill-border: rgba(0, 0, 0, 0.08);
+          --skill-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5));
+          --skill-hover-border: rgba(59, 130, 246, 0.5);
+          --skill-hover-bg: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(6, 182, 212, 0.1));
         }
 
         :global([data-theme="light"]) .skill-badge-text {
-          --skill-text: rgb(63 63 70);
+          --skill-text: rgb(24 24 27);
           --skill-text-hover: rgb(0 0 0);
         }
 
