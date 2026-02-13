@@ -1,0 +1,21 @@
+src/
+  App.jsx
+  main.jsx
+  index.css
+
+  data/
+    content.js
+
+  lib/
+    ui.js
+    motion.js
+    cn.js
+
+  sections/
+    Nav.jsx
+    Hero.jsx
+    Projects.jsx
+    Skills.jsx
+    Education.jsx
+    Contact.jsx
+    Footer.jsx

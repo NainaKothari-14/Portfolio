@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+/* ===============================
+   Dark + Light Blue Neon Theme
+================================ */
+
+:root {
+  --bg-main: #070a12;
+  --bg-card: #0b1020;
+  --border-subtle: rgba(56, 189, 248, 0.15);
+  --text-main: #e5e7eb;
+  --text-muted: #9ca3af;
+
+  /* Neon Blue */
+  --neon-blue: #38bdf8;
+}
+
+/* Global background */
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+}
+
+/* Neon glow helpers */
+.neon-glow {
+  box-shadow:
+    0 0 20px rgba(56, 189, 248, 0.15),
+    0 0 40px rgba(56, 189, 248, 0.08);
+}
+
+.neon-border {
+  border: 1px solid var(--border-subtle);
+}
+
+/* Hover glow */
+.neon-hover:hover {
+  box-shadow:
+    0 0 25px rgba(56, 189, 248, 0.25),
+    0 0 60px rgba(56, 189, 248, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Soft grid background (dev vibe) */
+.neon-grid {
+  background-image:
+    linear-gradient(to right, rgba(56,189,248,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(56,189,248,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
