@@ -34,12 +34,12 @@ export default function Contact() {
 
   return (
     <section id="contact" className="mx-auto max-w-6xl px-4 py-16">
-      {/* Custom heading with bigger "Contact" */}
+      {/* Heading */}
       <div className="mb-12 text-center">
         <div className="mb-3 text-sm font-medium uppercase tracking-wider text-blue-400">
           Let's talk
         </div>
-        <h2 className="mb-4 text-6xl font-bold text-zinc-100 md:text-7xl lg:text-8xl">
+        <h2 className="mb-4 text-3xl font-bold text-zinc-100 md:text-4xl lg:text-5xl">
           Contact
         </h2>
         <p className="mx-auto max-w-2xl text-zinc-400">
@@ -50,11 +50,9 @@ export default function Contact() {
       <div className="grid gap-6 md:grid-cols-2">
         {/* Contact Info Card with Blue Glow */}
         <div className="group relative">
-          {/* Blue glow effect */}
           <div className="absolute -inset-0.5 rounded-3xl bg-gradient-to-r from-blue-600 to-cyan-600 opacity-0 blur-xl transition duration-500 group-hover:opacity-30"></div>
           
           <div className="relative overflow-hidden rounded-3xl border border-zinc-800 bg-gradient-to-br from-zinc-900 to-zinc-950 p-8">
-            {/* Animated blue orb background */}
             <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-blue-500/10 blur-3xl"></div>
             <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-cyan-500/10 blur-3xl"></div>
             
@@ -120,11 +118,9 @@ export default function Contact() {
 
         {/* Contact Form with Blue Glow */}
         <div className="group relative">
-          {/* Blue glow effect */}
           <div className="absolute -inset-0.5 rounded-3xl bg-gradient-to-r from-cyan-600 to-blue-600 opacity-0 blur-xl transition duration-500 group-hover:opacity-30"></div>
           
           <div className="relative overflow-hidden rounded-3xl border border-zinc-800 bg-gradient-to-br from-zinc-950 to-zinc-900 p-8">
-            {/* Animated blue orb background */}
             <div className="absolute -left-20 -top-20 h-64 w-64 rounded-full bg-cyan-500/10 blur-3xl"></div>
             <div className="absolute -bottom-20 -right-20 h-64 w-64 rounded-full bg-blue-500/10 blur-3xl"></div>
             
