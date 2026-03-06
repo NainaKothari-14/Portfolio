@@ -18,17 +18,18 @@ export const PROFILE = {
 
 export const PROJECTS = [
   {
-    title: "Authentication Service",
-    tagline: "Production-ready authentication microservice with multiple login methods.",
-    stack: ["Node.js", "Express", "PostgreSQL", "React"],
-    kind: "Microservice",
+    title: "Real-Time Voice Chat System",
+    tagline: "Full-stack voice chat system with live audio streaming.",
+    stack: ["Socket.IO", "Redis", "Node.js", "React"],
+    kind: "Real-Time System",
     links: {
-      repo: "https://github.com/NainaKothari-14/auth-service",
+      repo: "https://github.com/NainaKothari-14/Realtime-Voice-Chat-System",
+      demo: "https://realtime-voice-chat-system.vercel.app/",
     },
     highlights: [
-      "Built a standalone authentication microservice supporting Email/Password, OTP (Email & WhatsApp), OAuth2 (Google, GitHub), and SSO.",
-      "Designed secure authentication flows using JWT and structured API responses.",
-      "Architected the service to be reusable and easily integrated across multiple applications.",
+      "Developed real-time voice chat with multiple rooms.",
+      "Implemented live voice streaming and mute/unmute controls.",
+      "Managed real-time state efficiently using Redis and Socket.IO.",
     ],
   },
   {
@@ -47,31 +48,17 @@ export const PROJECTS = [
     ],
   },
   {
-    title: "Real-Time Chat System with Presence & Activity Logging",
-    tagline: "Scalable real-time chat application with logging and analytics.",
-    stack: ["Socket.IO", "Redis", "MongoDB", "Kafka", "Elasticsearch"],
-    kind: "Real-Time System",
+    title: "Authentication Service",
+    tagline: "Production-ready authentication microservice with multiple login methods.",
+    stack: ["Node.js", "Express", "PostgreSQL", "React"],
+    kind: "Microservice",
     links: {
-      repo: "https://github.com/NainaKothari-14/Realtime-Chat-System-with-Presence-Activity-Logging",
+      repo: "https://github.com/NainaKothari-14/auth-service",
     },
     highlights: [
-      "Built real-time chat with typing indicators and presence tracking.",
-      "Used Redis for fast in-memory presence management.",
-      "Integrated Kafka and Elasticsearch for activity logging and search.",
-    ],
-  },
-  {
-    title: "Real-Time Voice Chat System",
-    tagline: "Full-stack voice chat system with live audio streaming.",
-    stack: ["Socket.IO", "Redis", "Node.js", "React"],
-    kind: "Real-Time System",
-    links: {
-      repo: "https://github.com/NainaKothari-14/Realtime-Voice-Chat-System",
-    },
-    highlights: [
-      "Developed real-time voice chat with multiple rooms.",
-      "Implemented live voice streaming and mute/unmute controls.",
-      "Managed real-time state efficiently using Redis and Socket.IO.",
+      "Built a standalone authentication microservice supporting Email/Password, OTP (Email & WhatsApp), OAuth2 (Google, GitHub), and SSO.",
+      "Designed secure authentication flows using JWT and structured API responses.",
+      "Architected the service to be reusable and easily integrated across multiple applications.",
     ],
   },
   {
@@ -103,6 +90,20 @@ export const PROJECTS = [
       "Focused on reliability and clean error handling.",
     ],
   },
+  {
+    title: "Real-Time Chat System with Presence & Activity Logging",
+    tagline: "Scalable real-time chat application with logging and analytics.",
+    stack: ["Socket.IO", "Redis", "MongoDB", "Kafka", "Elasticsearch"],
+    kind: "Real-Time System",
+    links: {
+      repo: "https://github.com/NainaKothari-14/Realtime-Chat-System-with-Presence-Activity-Logging",
+    },
+    highlights: [
+      "Built real-time chat with typing indicators and presence tracking.",
+      "Used Redis for fast in-memory presence management.",
+      "Integrated Kafka and Elasticsearch for activity logging and search.",
+    ],
+  },
 ];
 
 export const SKILLS = [
@@ -128,7 +129,7 @@ export const EDUCATION = [
   },
   {
     title: "Secondary School Education",
-    org: "Carmel Convent School",
+    org: "Carmelite Convent English High School",
     time: "2008 – 2020",
     meta: "Completed primary and secondary education",
   },
