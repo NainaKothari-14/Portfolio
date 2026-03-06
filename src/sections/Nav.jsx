@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Github, Linkedin, Mail, Menu, X } from "lucide-react";
+import { Github, Linkedin, Mail, Menu, X, Award } from "lucide-react";
 import { PROFILE } from "../data/content";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -8,8 +9,11 @@ export default function Nav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+  const isCertsPage = location.pathname === "/certificates";
 
-  const items = [
+  const scrollItems = [
     { label: "Home", href: "#home" },
     { label: "Projects", href: "#projects" },
     { label: "Skills", href: "#skills" },
@@ -21,7 +25,8 @@ export default function Nav() {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
-      const sections = items.map((item) => item.href.substring(1));
+      if (!isHome) return;
+      const sections = scrollItems.map((item) => item.href.substring(1));
       const current = sections.find((section) => {
         const el = document.getElementById(section);
         if (el) {
@@ -35,7 +40,7 @@ export default function Nav() {
     window.addEventListener("scroll", handleScroll);
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isHome]);
 
   const handleNavClick = (e, href) => {
     e.preventDefault();
@@ -57,23 +62,13 @@ export default function Nav() {
         onMouseMove={handleMouseMove}
         className={`nav-root sticky top-0 z-50 transition-all duration-700 ${scrolled ? "nav-scrolled" : ""}`}
       >
-        {/* Spotlight effect */}
-        <div
-          className="nav-spotlight"
-          style={{ "--mx": `${mousePos.x}px`, "--my": `${mousePos.y}px` }}
-        />
-
-        {/* Top border glow line */}
+        <div className="nav-spotlight" style={{ "--mx": `${mousePos.x}px`, "--my": `${mousePos.y}px` }} />
         <div className="nav-topline" />
 
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3 relative z-10">
 
-          {/* ── Logo ── */}
-          <a
-            href="#"
-            className="logo-wrap group relative flex items-center gap-3"
-            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-          >
+          {/* Logo */}
+          <Link to="/" className="logo-wrap group relative flex items-center gap-3">
             <div className="logo-badge relative grid h-9 w-9 place-items-center rounded-xl text-sm font-bold tracking-tight transition-all duration-300 group-hover:rounded-2xl group-hover:scale-110">
               NK
               <div className="logo-badge-ring" />
@@ -82,34 +77,51 @@ export default function Nav() {
               <div className="logo-name text-sm font-semibold tracking-wide">{PROFILE.name}</div>
               <div className="logo-sub text-[10px] tracking-widest uppercase">{PROFILE.location}</div>
             </div>
-          </a>
+          </Link>
 
-          {/* ── Desktop Nav Pills ── */}
+          {/* Desktop Nav Pills */}
           <div className="nav-pill-wrap hidden md:flex items-center gap-0.5 rounded-2xl px-2 py-1.5">
-            {items.map((item, i) => {
-              const isActive = activeSection === item.href.substring(1);
-              return (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href)}
-                  onMouseEnter={() => setHoveredItem(i)}
-                  onMouseLeave={() => setHoveredItem(null)}
-                  className={`nav-item relative px-3.5 py-1.5 text-xs font-medium rounded-xl transition-all duration-300 ${isActive ? "nav-item-active" : ""}`}
-                  style={{
-                    opacity: hoveredItem !== null && hoveredItem !== i && !isActive ? 0.4 : 1,
-                    transform: hoveredItem === i ? "translateY(-1px)" : "translateY(0)",
-                  }}
-                >
-                  {isActive && <span className="nav-active-bg" />}
-                  <span className="relative z-10">{item.label}</span>
-                  {isActive && <span className="nav-active-dot" />}
-                </a>
-              );
-            })}
+            {isHome ? (
+              scrollItems.map((item, i) => {
+                const isActive = activeSection === item.href.substring(1);
+                return (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={(e) => handleNavClick(e, item.href)}
+                    onMouseEnter={() => setHoveredItem(i)}
+                    onMouseLeave={() => setHoveredItem(null)}
+                    className={`nav-item relative px-3.5 py-1.5 text-xs font-medium rounded-xl transition-all duration-300 ${isActive ? "nav-item-active" : ""}`}
+                    style={{
+                      opacity: hoveredItem !== null && hoveredItem !== i && !isActive ? 0.4 : 1,
+                      transform: hoveredItem === i ? "translateY(-1px)" : "translateY(0)",
+                    }}
+                  >
+                    {isActive && <span className="nav-active-bg" />}
+                    <span className="relative z-10">{item.label}</span>
+                    {isActive && <span className="nav-active-dot" />}
+                  </a>
+                );
+              })
+            ) : (
+              <Link to="/" className="nav-item relative px-3.5 py-1.5 text-xs font-medium rounded-xl transition-all duration-300">
+                ← Home
+              </Link>
+            )}
+
+            {/* Certificates link — always visible */}
+            <Link
+              to="/certificates"
+              className={`nav-item-cert relative flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-medium rounded-xl transition-all duration-300 ml-1 ${isCertsPage ? "nav-item-cert-active" : ""}`}
+            >
+              {isCertsPage && <span className="nav-active-bg" />}
+              <Award size={12} className="relative z-10" />
+              <span className="relative z-10">Certificates</span>
+              {isCertsPage && <span className="nav-active-dot" />}
+            </Link>
           </div>
 
-          {/* ── Right: Social ── */}
+          {/* Right: Social */}
           <div className="flex items-center gap-1.5">
             {[
               { href: PROFILE.links.github, icon: Github, label: "GitHub", rotate: true },
@@ -124,35 +136,25 @@ export default function Nav() {
                 aria-label={label}
                 className="social-btn group relative grid h-9 w-9 place-items-center rounded-xl transition-all duration-300 hover:scale-110"
               >
-                <Icon
-                  size={16}
-                  className={`transition-all duration-300 ${rotate ? "group-hover:rotate-12" : "group-hover:scale-110"}`}
-                />
+                <Icon size={16} className={`transition-all duration-300 ${rotate ? "group-hover:rotate-12" : "group-hover:scale-110"}`} />
               </a>
             ))}
 
-            {/* Mobile hamburger */}
             <button
               className="mobile-btn ml-1 grid h-9 w-9 place-items-center rounded-xl transition-all duration-300 md:hidden"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle menu"
             >
-              <span className={`mobile-icon-wrap ${mobileMenuOpen ? "open" : ""}`}>
-                {mobileMenuOpen ? <X size={17} /> : <Menu size={17} />}
-              </span>
+              {mobileMenuOpen ? <X size={17} /> : <Menu size={17} />}
             </button>
           </div>
         </div>
       </nav>
 
-      {/* ── Mobile Menu ── */}
-      <div
-        className={`mobile-menu fixed inset-x-0 top-[57px] z-40 overflow-hidden border-b transition-all duration-500 ease-in-out md:hidden ${
-          mobileMenuOpen ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0"
-        }`}
-      >
+      {/* Mobile Menu */}
+      <div className={`mobile-menu fixed inset-x-0 top-[57px] z-40 overflow-hidden border-b transition-all duration-500 ease-in-out md:hidden ${mobileMenuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"}`}>
         <div className="space-y-1 px-4 py-4">
-          {items.map((item, i) => {
+          {isHome && scrollItems.map((item, i) => {
             const isActive = activeSection === item.href.substring(1);
             return (
               <a
@@ -172,192 +174,145 @@ export default function Nav() {
             );
           })}
 
+          <Link
+            to="/certificates"
+            onClick={() => setMobileMenuOpen(false)}
+            className={`mobile-item-cert flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-300 ${isCertsPage ? "mobile-item-cert-active" : ""}`}
+            style={{
+              transform: mobileMenuOpen ? "translateX(0)" : "translateX(-16px)",
+              opacity: mobileMenuOpen ? 1 : 0,
+              transitionDelay: mobileMenuOpen ? `${scrollItems.length * 40}ms` : "0ms",
+            }}
+          >
+            <Award size={15} />
+            Certificates
+          </Link>
         </div>
       </div>
 
       {mobileMenuOpen && (
-        <div
-          className="fixed inset-0 z-30 backdrop-blur-sm bg-black/50 md:hidden"
-          onClick={() => setMobileMenuOpen(false)}
-        />
+        <div className="fixed inset-0 z-30 backdrop-blur-sm bg-black/50 md:hidden" onClick={() => setMobileMenuOpen(false)} />
       )}
 
       <style jsx>{`
-        /* ── Root ── */
         .nav-root {
-          background: rgba(7, 7, 10, 0.6);
+          background: rgba(7,7,10,0.6);
           backdrop-filter: blur(20px) saturate(180%);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+          border-bottom: 1px solid rgba(255,255,255,0.04);
         }
         .nav-root.nav-scrolled {
-          background: rgba(7, 7, 10, 0.85);
-          border-bottom-color: rgba(59, 130, 246, 0.15);
-          box-shadow:
-            0 1px 0 rgba(59, 130, 246, 0.08),
-            0 8px 32px rgba(0, 0, 0, 0.4),
-            0 0 60px rgba(59, 130, 246, 0.05);
+          background: rgba(7,7,10,0.85);
+          border-bottom-color: rgba(59,130,246,0.15);
+          box-shadow: 0 1px 0 rgba(59,130,246,0.08), 0 8px 32px rgba(0,0,0,0.4), 0 0 60px rgba(59,130,246,0.05);
         }
-
-        /* Spotlight */
         .nav-spotlight {
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          background: radial-gradient(
-            180px circle at var(--mx, 50%) var(--my, 50%),
-            rgba(59, 130, 246, 0.06) 0%,
-            transparent 70%
-          );
-          transition: opacity 0.3s;
+          position: absolute; inset: 0; pointer-events: none;
+          background: radial-gradient(180px circle at var(--mx,50%) var(--my,50%), rgba(59,130,246,0.06) 0%, transparent 70%);
         }
-
-        /* Top glow line */
         .nav-topline {
-          position: absolute;
-          top: 0;
-          left: 10%;
-          right: 10%;
-          height: 1px;
-          background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(59, 130, 246, 0.4),
-            rgba(6, 182, 212, 0.4),
-            transparent
-          );
-          opacity: 0;
-          transition: opacity 0.5s;
+          position: absolute; top: 0; left: 10%; right: 10%; height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(59,130,246,0.4), rgba(6,182,212,0.4), transparent);
+          opacity: 0; transition: opacity 0.5s;
         }
-        .nav-scrolled .nav-topline {
-          opacity: 1;
-        }
+        .nav-scrolled .nav-topline { opacity: 1; }
 
-        /* ── Logo ── */
         .logo-badge {
           background: linear-gradient(135deg, rgb(29 78 216), rgb(6 182 212));
           color: white;
-          border: 1px solid rgba(96, 165, 250, 0.4);
-          box-shadow: 0 0 14px rgba(59, 130, 246, 0.35), inset 0 1px 0 rgba(255,255,255,0.15);
+          border: 1px solid rgba(96,165,250,0.4);
+          box-shadow: 0 0 14px rgba(59,130,246,0.35), inset 0 1px 0 rgba(255,255,255,0.15);
         }
         .logo-wrap:hover .logo-badge {
-          background: linear-gradient(135deg, rgb(37 99 235), rgb(6 182 212));
-          border-color: rgba(96, 165, 250, 0.7);
-          box-shadow: 0 0 28px rgba(59, 130, 246, 0.7), 0 0 56px rgba(59, 130, 246, 0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+          border-color: rgba(96,165,250,0.7);
+          box-shadow: 0 0 28px rgba(59,130,246,0.7), 0 0 56px rgba(59,130,246,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
         }
         .logo-badge-ring {
-          position: absolute;
-          inset: -3px;
-          border-radius: inherit;
+          position: absolute; inset: -3px; border-radius: inherit;
           border: 1px solid transparent;
           background: linear-gradient(135deg, rgba(96,165,250,0.5), rgba(6,182,212,0.5)) border-box;
           -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-          -webkit-mask-composite: destination-out;
-          mask-composite: exclude;
-          opacity: 0;
-          transition: opacity 0.3s;
+          -webkit-mask-composite: destination-out; mask-composite: exclude;
+          opacity: 0; transition: opacity 0.3s;
         }
-        .logo-wrap:hover .logo-badge-ring {
-          opacity: 1;
-        }
-        .logo-name {
-          color: rgba(255, 255, 255, 1);
-          transition: color 0.3s;
-        }
-        .logo-wrap:hover .logo-name {
-          color: white;
-        }
-        .logo-sub {
-          color: rgba(186, 207, 250, 0.75);
-          opacity: 1;
-        }
+        .logo-wrap:hover .logo-badge-ring { opacity: 1; }
+        .logo-name { color: rgba(255,255,255,1); transition: color 0.3s; }
+        .logo-sub { color: rgba(186,207,250,0.75); }
 
-        /* ── Nav pill container ── */
         .nav-pill-wrap {
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.06);
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.06);
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
         }
+        .nav-item { color: rgba(210,210,225,0.85); letter-spacing: 0.01em; text-decoration: none; }
+        .nav-item:hover { color: rgba(255,255,255,1); }
+        .nav-item-active { color: white; }
 
-        /* ── Nav items ── */
-        .nav-item {
-          color: rgba(210, 210, 225, 0.85);
-          letter-spacing: 0.01em;
+        .nav-item-cert {
+          color: rgba(147,197,253,0.85); text-decoration: none;
+          border: 1px solid rgba(59,130,246,0.2);
+          background: rgba(37,99,235,0.08);
         }
-        .nav-item:hover {
-          color: rgba(255, 255, 255, 1);
+        .nav-item-cert:hover {
+          color: rgb(186,230,253);
+          border-color: rgba(59,130,246,0.4);
+          background: rgba(37,99,235,0.15);
+          box-shadow: 0 0 16px rgba(59,130,246,0.15);
         }
-        .nav-item-active {
-          color: white;
+        .nav-item-cert-active {
+          color: white !important;
+          border-color: rgba(59,130,246,0.45) !important;
+          background: rgba(37,99,235,0.2) !important;
+          box-shadow: 0 0 20px rgba(59,130,246,0.2);
         }
 
         .nav-active-bg {
-          position: absolute;
-          inset: 0;
-          border-radius: inherit;
-          background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(6, 182, 212, 0.15));
-          border: 1px solid rgba(59, 130, 246, 0.25);
-          box-shadow: inset 0 1px 0 rgba(96, 165, 250, 0.1), 0 0 16px rgba(59, 130, 246, 0.1);
+          position: absolute; inset: 0; border-radius: inherit;
+          background: linear-gradient(135deg, rgba(37,99,235,0.2), rgba(6,182,212,0.15));
+          border: 1px solid rgba(59,130,246,0.25);
+          box-shadow: inset 0 1px 0 rgba(96,165,250,0.1), 0 0 16px rgba(59,130,246,0.1);
         }
-
         .nav-active-dot {
-          position: absolute;
-          bottom: 3px;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 3px;
-          height: 3px;
-          border-radius: 50%;
-          background: rgb(96, 165, 250);
-          box-shadow: 0 0 6px rgba(96, 165, 250, 1), 0 0 12px rgba(96, 165, 250, 0.6);
+          position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%);
+          width: 3px; height: 3px; border-radius: 50%;
+          background: rgb(96,165,250);
+          box-shadow: 0 0 6px rgba(96,165,250,1), 0 0 12px rgba(96,165,250,0.6);
           animation: dotPulse 2s ease-in-out infinite;
         }
 
-        /* ── Social buttons ── */
-        .social-btn {
-          color: rgba(200, 200, 215, 0.75);
-          border: 1px solid transparent;
-        }
+        .social-btn { color: rgba(200,200,215,0.75); border: 1px solid transparent; }
         .social-btn:hover {
-          color: rgb(147, 197, 253);
-          background: rgba(37, 99, 235, 0.1);
-          border-color: rgba(59, 130, 246, 0.2);
-          box-shadow: 0 0 16px rgba(59, 130, 246, 0.2);
+          color: rgb(147,197,253);
+          background: rgba(37,99,235,0.1);
+          border-color: rgba(59,130,246,0.2);
+          box-shadow: 0 0 16px rgba(59,130,246,0.2);
         }
-
-        /* ── Mobile button ── */
         .mobile-btn {
-          color: rgba(161, 161, 170, 0.7);
-          border: 1px solid rgba(255, 255, 255, 0.06);
-          background: rgba(255, 255, 255, 0.03);
+          color: rgba(161,161,170,0.7);
+          border: 1px solid rgba(255,255,255,0.06);
+          background: rgba(255,255,255,0.03);
         }
-        .mobile-btn:hover {
-          color: rgb(147, 197, 253);
-          border-color: rgba(59, 130, 246, 0.2);
-          background: rgba(37, 99, 235, 0.1);
-        }
+        .mobile-btn:hover { color: rgb(147,197,253); border-color: rgba(59,130,246,0.2); background: rgba(37,99,235,0.1); }
 
-        /* ── Mobile Menu ── */
         .mobile-menu {
-          background: rgba(7, 7, 10, 0.97);
-          border-color: rgba(59, 130, 246, 0.12);
-          box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 40px rgba(59, 130, 246, 0.08);
+          background: rgba(7,7,10,0.97);
+          border-color: rgba(59,130,246,0.12);
+          box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 0 40px rgba(59,130,246,0.08);
           backdrop-filter: blur(24px);
         }
-        .mobile-item {
-          color: rgba(210, 210, 225, 0.9);
+        .mobile-item { color: rgba(210,210,225,0.9); text-decoration: none; }
+        .mobile-item:hover { color: white; background: rgba(59,130,246,0.08); }
+        .mobile-item-active { color: white; background: rgba(37,99,235,0.1); border: 1px solid rgba(59,130,246,0.15); }
+        .mobile-item-cert {
+          color: rgba(147,197,253,0.9); text-decoration: none;
+          background: rgba(37,99,235,0.08);
+          border: 1px solid rgba(59,130,246,0.15);
         }
-        .mobile-item:hover {
-          color: white;
-          background: rgba(59, 130, 246, 0.08);
-        }
-        .mobile-item-active {
-          color: white;
-          background: rgba(37, 99, 235, 0.1);
-          border: 1px solid rgba(59, 130, 246, 0.15);
-        }
+        .mobile-item-cert:hover { background: rgba(37,99,235,0.15); color: white; }
+        .mobile-item-cert-active { background: rgba(37,99,235,0.18) !important; color: white !important; }
+
         @keyframes dotPulse {
-          0%, 100% { opacity: 1; box-shadow: 0 0 6px rgba(96, 165, 250, 1), 0 0 12px rgba(96, 165, 250, 0.6); }
-          50% { opacity: 0.6; box-shadow: 0 0 3px rgba(96, 165, 250, 0.7), 0 0 6px rgba(96, 165, 250, 0.3); }
+          0%, 100% { opacity: 1; box-shadow: 0 0 6px rgba(96,165,250,1), 0 0 12px rgba(96,165,250,0.6); }
+          50% { opacity: 0.6; box-shadow: 0 0 3px rgba(96,165,250,0.7), 0 0 6px rgba(96,165,250,0.3); }
         }
       `}</style>
     </>

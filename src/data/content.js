@@ -141,8 +141,8 @@ export const CERTS = [
 ];
 
 export const ACHIEVEMENTS = [
+  "Top 10 Finalist – EdQuest Women Who Code Hackathon 2025, selected among national teams for building a scalable solution",
   "Runner-up, VNPS Paper Presentation — Personalized Learning App for Autistic Children",
-  "Built 6+ production-ready projects showcasing real-time systems and microservices architecture",
-  "Contributed to open-source women-in-tech mentorship platform (MentorHer)",
+  "Published 2 copyrights for innovative academic projects.",
   "Developed scalable authentication service supporting multiple OAuth providers and OTP methods",
 ];
