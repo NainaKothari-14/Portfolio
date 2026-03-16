@@ -9,7 +9,6 @@ import Education from "./sections/Education.jsx";
 import Achievements from "./sections/Achievement.jsx";
 import Contact from "./sections/Contact.jsx";
 import Footer from "./sections/Footer.jsx";
-import Certificates from "./sections/Certificates.jsx";
 
 function Home() {
   return (
@@ -39,7 +38,6 @@ export default function App() {
         <Nav />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/certificates" element={<Certificates />} />
         </Routes>
       </div>
     </BrowserRouter>

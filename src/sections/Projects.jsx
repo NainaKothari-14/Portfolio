@@ -32,9 +32,9 @@ const stackColors = {
   "Nodemailer":     "#22c55e",
 };
 
-// Individual card with hover state
 function ProjectCard({ p, idx }) {
   const [hovered, setHovered] = useState(false);
+  const [imgError, setImgError] = useState(false);
   const KindIcon = kindIcons[p.kind] || Code2;
   const kc = kindColors[p.kind] || { from: "#3b82f6", to: "#06b6d4" };
   const accentColor = kc.from;
@@ -48,7 +48,7 @@ function ProjectCard({ p, idx }) {
       exit={{ opacity: 0, scale: 0.95 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.4, delay: idx * 0.06 }}
-      className="group relative overflow-hidden rounded-3xl border backdrop-blur-sm p-6 transition-all duration-500 cursor-default"
+      className="group relative overflow-hidden rounded-3xl border backdrop-blur-sm transition-all duration-500 cursor-default"
       style={{
         borderColor: hovered ? `${accentColor}50` : "rgba(63,63,70,0.8)",
         background: "rgba(24,24,27,0.6)",
@@ -60,35 +60,35 @@ function ProjectCard({ p, idx }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Animated orbs — faint default, vivid on hover */}
-      <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full blur-3xl transition-all duration-700"
+      {/* Animated orbs */}
+      <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full blur-3xl transition-all duration-700 pointer-events-none"
         style={{
           background: `radial-gradient(circle, ${accentColor}25, transparent)`,
           opacity: hovered ? 0.9 : 0.15,
           transform: hovered ? "scale(1.5)" : "scale(1)",
         }} />
-      <div className="absolute -bottom-16 -left-16 h-40 w-40 rounded-full blur-3xl transition-all duration-700"
+      <div className="absolute -bottom-16 -left-16 h-40 w-40 rounded-full blur-3xl transition-all duration-700 pointer-events-none"
         style={{
           background: `radial-gradient(circle, ${kc.to}20, transparent)`,
           opacity: hovered ? 0.7 : 0.1,
           transform: hovered ? "scale(1.5)" : "scale(1)",
         }} />
 
-      {/* Top shimmer line — only on hover */}
-      <div className="absolute -top-px left-0 right-0 h-px transition-opacity duration-500"
+      {/* Top shimmer line */}
+      <div className="absolute -top-px left-0 right-0 h-px transition-opacity duration-500 pointer-events-none"
         style={{
           background: `linear-gradient(90deg, transparent, ${accentColor}90, transparent)`,
           opacity: hovered ? 1 : 0,
         }} />
 
       {/* Shine sweep */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transition-all duration-1000"
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transition-all duration-1000 pointer-events-none"
         style={{
           opacity: hovered ? 1 : 0,
           transform: hovered ? "translateX(100%) skewX(-15deg)" : "translateX(-100%) skewX(-15deg)",
         }} />
 
-      {/* Floating particles — only on hover */}
+      {/* Floating particles */}
       <div className="pointer-events-none absolute inset-0 transition-opacity duration-700"
         style={{ opacity: hovered ? 1 : 0 }}>
         {[...Array(4)].map((_, i) => (
@@ -104,8 +104,39 @@ function ProjectCard({ p, idx }) {
         ))}
       </div>
 
-      <div className="relative z-10">
-        {/* Kind badge — grey default, colored on hover */}
+      {/* ── Project Image Preview ── */}
+      {p.image && !imgError && (
+        <div
+          className="relative w-full overflow-hidden"
+          style={{ height: "180px", background: "rgba(9,9,11,0.8)" }}
+        >
+          <img
+            src={p.image}
+            alt={`${p.title} preview`}
+            onError={() => setImgError(true)}
+            className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+          />
+          {/* gradient fade into card body */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(to bottom, transparent 50%, rgba(24,24,27,0.95) 100%)`,
+            }}
+          />
+          {/* accent tint on hover */}
+          <div
+            className="absolute inset-0 transition-opacity duration-500"
+            style={{
+              background: `linear-gradient(135deg, ${accentColor}18, transparent)`,
+              opacity: hovered ? 1 : 0,
+            }}
+          />
+        </div>
+      )}
+
+      {/* Card Body */}
+      <div className="relative z-10 p-6">
+        {/* Kind badge */}
         <div
           className="mb-3 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-wider transition-all duration-300"
           style={{
@@ -123,7 +154,8 @@ function ProjectCard({ p, idx }) {
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
             <h3 className="text-base font-bold leading-snug transition-all duration-300"
-              style={{ color: hovered ? "transparent" : "#fff",
+              style={{
+                color: hovered ? "transparent" : "#fff",
                 backgroundImage: hovered ? `linear-gradient(to right, #fff, ${accentColor})` : "none",
                 WebkitBackgroundClip: hovered ? "text" : "unset",
                 backgroundClip: hovered ? "text" : "unset",
@@ -154,7 +186,7 @@ function ProjectCard({ p, idx }) {
           </div>
         </div>
 
-        {/* Stack chips — grey default, brand color on hover */}
+        {/* Stack chips */}
         <div className="mt-4 flex flex-wrap gap-1.5">
           {p.stack.map((s) => {
             const sc = stackColors[s] || "#6b7280";
@@ -173,7 +205,7 @@ function ProjectCard({ p, idx }) {
           })}
         </div>
 
-        {/* Divider — grey default, accent on hover */}
+        {/* Divider */}
         <div className="my-4 h-px transition-all duration-500"
           style={{
             background: hovered
@@ -181,7 +213,7 @@ function ProjectCard({ p, idx }) {
               : "rgba(63,63,70,0.6)",
           }} />
 
-        {/* Highlights — grey dot default, accent on hover */}
+        {/* Highlights */}
         <ul className="space-y-2">
           {p.highlights.map((h) => (
             <li key={h} className="flex items-start gap-2 text-xs text-zinc-300 leading-relaxed">
@@ -220,8 +252,8 @@ function ProjectCard({ p, idx }) {
         )}
       </div>
 
-      {/* Corner accent — only on hover */}
-      <div className="absolute right-0 top-0 h-20 w-20 transition-opacity duration-500"
+      {/* Corner accent */}
+      <div className="absolute right-0 top-0 h-20 w-20 transition-opacity duration-500 pointer-events-none"
         style={{ opacity: hovered ? 1 : 0 }}>
         <div className="absolute right-0 top-0 h-px w-10"
           style={{ background: `linear-gradient(to left, ${accentColor}, transparent)` }} />

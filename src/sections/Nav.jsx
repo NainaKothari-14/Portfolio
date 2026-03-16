@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Github, Linkedin, Mail, Menu, X, Award } from "lucide-react";
+import { Github, Linkedin, Mail, Menu, X } from "lucide-react";
 import { PROFILE } from "../data/content";
 import { Link, useLocation } from "react-router-dom";
 
@@ -11,7 +11,6 @@ export default function Nav() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const location = useLocation();
   const isHome = location.pathname === "/";
-  const isCertsPage = location.pathname === "/certificates";
 
   const scrollItems = [
     { label: "Home", href: "#home" },
@@ -108,17 +107,6 @@ export default function Nav() {
                 ← Home
               </Link>
             )}
-
-            {/* Certificates link — always visible */}
-            <Link
-              to="/certificates"
-              className={`nav-item-cert relative flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-medium rounded-xl transition-all duration-300 ml-1 ${isCertsPage ? "nav-item-cert-active" : ""}`}
-            >
-              {isCertsPage && <span className="nav-active-bg" />}
-              <Award size={12} className="relative z-10" />
-              <span className="relative z-10">Certificates</span>
-              {isCertsPage && <span className="nav-active-dot" />}
-            </Link>
           </div>
 
           {/* Right: Social */}
@@ -173,20 +161,6 @@ export default function Nav() {
               </a>
             );
           })}
-
-          <Link
-            to="/certificates"
-            onClick={() => setMobileMenuOpen(false)}
-            className={`mobile-item-cert flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-300 ${isCertsPage ? "mobile-item-cert-active" : ""}`}
-            style={{
-              transform: mobileMenuOpen ? "translateX(0)" : "translateX(-16px)",
-              opacity: mobileMenuOpen ? 1 : 0,
-              transitionDelay: mobileMenuOpen ? `${scrollItems.length * 40}ms` : "0ms",
-            }}
-          >
-            <Award size={15} />
-            Certificates
-          </Link>
         </div>
       </div>
 
@@ -247,24 +221,6 @@ export default function Nav() {
         .nav-item:hover { color: rgba(255,255,255,1); }
         .nav-item-active { color: white; }
 
-        .nav-item-cert {
-          color: rgba(147,197,253,0.85); text-decoration: none;
-          border: 1px solid rgba(59,130,246,0.2);
-          background: rgba(37,99,235,0.08);
-        }
-        .nav-item-cert:hover {
-          color: rgb(186,230,253);
-          border-color: rgba(59,130,246,0.4);
-          background: rgba(37,99,235,0.15);
-          box-shadow: 0 0 16px rgba(59,130,246,0.15);
-        }
-        .nav-item-cert-active {
-          color: white !important;
-          border-color: rgba(59,130,246,0.45) !important;
-          background: rgba(37,99,235,0.2) !important;
-          box-shadow: 0 0 20px rgba(59,130,246,0.2);
-        }
-
         .nav-active-bg {
           position: absolute; inset: 0; border-radius: inherit;
           background: linear-gradient(135deg, rgba(37,99,235,0.2), rgba(6,182,212,0.15));
@@ -302,13 +258,6 @@ export default function Nav() {
         .mobile-item { color: rgba(210,210,225,0.9); text-decoration: none; }
         .mobile-item:hover { color: white; background: rgba(59,130,246,0.08); }
         .mobile-item-active { color: white; background: rgba(37,99,235,0.1); border: 1px solid rgba(59,130,246,0.15); }
-        .mobile-item-cert {
-          color: rgba(147,197,253,0.9); text-decoration: none;
-          background: rgba(37,99,235,0.08);
-          border: 1px solid rgba(59,130,246,0.15);
-        }
-        .mobile-item-cert:hover { background: rgba(37,99,235,0.15); color: white; }
-        .mobile-item-cert-active { background: rgba(37,99,235,0.18) !important; color: white !important; }
 
         @keyframes dotPulse {
           0%, 100% { opacity: 1; box-shadow: 0 0 6px rgba(96,165,250,1), 0 0 12px rgba(96,165,250,0.6); }

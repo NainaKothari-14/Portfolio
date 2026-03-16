@@ -2,12 +2,12 @@
 
 export const PROFILE = {
   name: "Naina Kothari",
-  role: "Full-Stack Developer (MERN) | Backend & Real-Time Systems",
+  role: "Full-Stack Developer | Backend & Real-Time Systems",
   location: "Mumbai, India",
   headline:
-    "Final-year Computer Engineering student building scalable full-stack applications, authentication systems, and real-time services with a strong backend focus.",
+    "Final-year Computer Engineering student specializing in scalable full-stack applications, authentication systems, and real-time communication platforms.",
   about:
-    "I specialize in full-stack development with a strong interest in backend engineering. I've built authentication microservices, real-time chat and voice systems, and reusable backend services designed for scalability and easy integration.",
+    "I build scalable full-stack applications with a strong focus on backend architecture and real-time systems. My work includes authentication microservices, real-time communication platforms, and reusable backend services designed for scalability, security, and clean integration across applications.",
   links: {
     github: "https://github.com/NainaKothari-14",
     linkedin: "https://www.linkedin.com/in/naina-kothari",
@@ -19,99 +19,114 @@ export const PROFILE = {
 export const PROJECTS = [
   {
     title: "Real-Time Voice Chat System",
-    tagline: "Full-stack voice chat system with live audio streaming.",
-    stack: ["Socket.IO", "Redis", "Node.js", "React"],
+    tagline: "Scalable voice chat platform supporting live audio communication.",
+    image: "/project/Realtime-Voice-Chat-System.png",
+    stack: ["Node.js", "React", "Socket.IO", "Redis"],
     kind: "Real-Time System",
+    featured: true,
     links: {
       repo: "https://github.com/NainaKothari-14/Realtime-Voice-Chat-System",
       demo: "https://realtime-voice-chat-system.vercel.app/",
     },
     highlights: [
-      "Developed real-time voice chat with multiple rooms.",
-      "Implemented live voice streaming and mute/unmute controls.",
-      "Managed real-time state efficiently using Redis and Socket.IO.",
+      "Built a real-time voice communication platform supporting multi-room audio interaction.",
+      "Implemented live audio streaming with mute/unmute functionality and low-latency messaging.",
+      "Used Redis and Socket.IO for efficient real-time state management and event broadcasting.",
     ],
   },
   {
     title: "MentorHer — Women Mentorship Platform",
-    tagline: "Collaborative mentorship platform focused on women in tech.",
+    tagline: "Platform connecting women mentors and mentees in tech.",
+    image: "/project/mentor-her.png",
     stack: ["Next.js", "TypeScript"],
     kind: "Full-Stack",
+    featured: true,
     links: {
       live: "https://mentorher.vercel.app/",
       repo: "https://github.com/NainaKothari-14/mentor-her-platform-contribution",
     },
     highlights: [
-      "Contributed to a group project aimed at connecting women mentors and mentees.",
-      "Built frontend features using Next.js and TypeScript.",
-      "Focused on clean UI components, routing, and maintainable structure.",
+      "Contributed to a collaborative platform designed to support mentorship for women in technology.",
+      "Developed frontend modules using Next.js and TypeScript.",
+      "Implemented reusable UI components and improved routing structure for maintainability.",
     ],
   },
   {
     title: "Authentication Service",
-    tagline: "Production-ready authentication microservice with multiple login methods.",
+    tagline: "Production-ready authentication microservice with multiple login strategies.",
+    image: "/project/auth-services.png",
     stack: ["Node.js", "Express", "PostgreSQL", "React"],
     kind: "Microservice",
+    featured: true,
     links: {
       repo: "https://github.com/NainaKothari-14/auth-service",
     },
     highlights: [
-      "Built a standalone authentication microservice supporting Email/Password, OTP (Email & WhatsApp), OAuth2 (Google, GitHub), and SSO.",
-      "Designed secure authentication flows using JWT and structured API responses.",
-      "Architected the service to be reusable and easily integrated across multiple applications.",
+      "Developed a standalone authentication microservice supporting Email/Password, OTP (Email & WhatsApp), OAuth2 (Google, GitHub), and SSO.",
+      "Designed secure authentication flows using JWT with modular API architecture.",
+      "Built reusable authentication APIs designed for integration across multiple applications.",
     ],
   },
   {
     title: "PDF Generation Service",
-    tagline: "Lightweight PDF generation microservice with live preview.",
-    stack: ["Node.js", "pdf-lib", "React"],
+    tagline: "Microservice for dynamic PDF generation with live preview.",
+    image: "/project/pdf generator.png",
+    stack: ["Node.js", "React", "pdf-lib"],
     kind: "Microservice",
+    featured: false,
     links: {
       repo: "https://github.com/NainaKothari-14/pdf-generation-service-pdf-lib",
       live: "https://pdf-generation-service-pdf-lib.vercel.app/",
     },
     highlights: [
-      "Built lightweight PDF generation using pdf-lib.",
-      "Added React-based preview before download.",
-      "Designed clean, reusable APIs for integration.",
+      "Built lightweight backend service for dynamic PDF generation using pdf-lib.",
+      "Implemented React-based live preview before downloading generated documents.",
+      "Designed clean API endpoints enabling easy integration with other systems.",
     ],
   },
   {
     title: "Independent Email Service",
-    tagline: "Reusable email-sending microservice for OTPs and notifications.",
+    tagline: "Reusable microservice for transactional email and OTP delivery.",
+    image: "/project/independent-email.png",
     stack: ["Node.js", "Nodemailer"],
     kind: "Microservice",
+    featured: false,
     links: {
       repo: "https://github.com/NainaKothari-14/independent-email-service",
     },
     highlights: [
-      "Built independent email service for OTPs and notifications.",
-      "Designed config-driven integration for reuse.",
-      "Focused on reliability and clean error handling.",
+      "Developed an independent email service for OTP delivery and transactional notifications.",
+      "Implemented configuration-driven setup for easy integration across applications.",
+      "Focused on reliability, modular architecture, and clean error handling.",
     ],
   },
   {
     title: "Real-Time Chat System with Presence & Activity Logging",
-    tagline: "Scalable real-time chat application with logging and analytics.",
+    tagline: "Distributed real-time messaging system with analytics and logging.",
+    image: "/project/Realtime -chat-system-with-presence.png",
     stack: ["Socket.IO", "Redis", "MongoDB", "Kafka", "Elasticsearch"],
     kind: "Real-Time System",
+    featured: false,
     links: {
       repo: "https://github.com/NainaKothari-14/Realtime-Chat-System-with-Presence-Activity-Logging",
     },
     highlights: [
-      "Built real-time chat with typing indicators and presence tracking.",
+      "Developed scalable real-time chat with typing indicators and user presence tracking.",
       "Used Redis for fast in-memory presence management.",
-      "Integrated Kafka and Elasticsearch for activity logging and search.",
+      "Integrated Kafka and Elasticsearch for event streaming, activity logging, and search capabilities.",
     ],
   },
 ];
+
+export const FEATURED = PROJECTS.filter((p) => p.featured);
 
 export const SKILLS = [
   { label: "Frontend", items: ["React", "Next.js", "TypeScript", "Tailwind CSS"] },
   { label: "Backend", items: ["Node.js", "Express", "REST APIs"] },
   { label: "Databases", items: ["PostgreSQL", "MongoDB", "Redis", "Firebase"] },
-  { label: "Real-Time & Messaging", items: ["Socket.IO", "Kafka", "Elasticsearch"] },
-  { label: "Tools", items: ["Git", "GitHub", "Postman", "Vercel"] },
+  { label: "Real-Time Systems", items: ["Socket.IO", "Kafka", "WebSockets"] },
+  { label: "Search & Logging", items: ["Elasticsearch"] },
+  { label: "Tools & Platforms", items: ["Git", "GitHub", "Postman", "Vercel"] },
 ];
 
 export const EDUCATION = [
@@ -119,30 +134,25 @@ export const EDUCATION = [
     title: "Bachelor of Engineering — Computer Engineering",
     org: "Vidyavardhini's College of Engineering & Technology, Mumbai University",
     time: "2022 – 2026",
-    meta: "CGPA: 8.1 | Relevant Coursework: Data Structures & Algorithms, DBMS, Operating Systems, Computer Networks, Distributed Systems, Advanced DBMS, AI, NLP, OOP",
+    meta: "CGPA: 8.1 | Coursework: Data Structures & Algorithms, DBMS, Operating Systems, Computer Networks, Distributed Systems, Advanced DBMS, Artificial Intelligence, NLP, Object-Oriented Programming",
   },
   {
     title: "Higher Secondary Education — Science",
     org: "Thomas Baptista Junior College",
     time: "2020 – 2022",
-    meta: "Science Stream with focus on foundational web technologies (HTML)",
+    meta: "Science stream with early exposure to web technologies.",
   },
   {
     title: "Secondary School Education",
     org: "Carmelite Convent English High School",
     time: "2008 – 2020",
-    meta: "Completed primary and secondary education",
+    meta: "Completed primary and secondary education.",
   },
 ];
 
-export const CERTS = [
-  "Infosys Springboard — Java, Python, Data Structures & Algorithms",
-  "MERN Stack & Web Development Certifications (Prodigy Infotech, CodSoft)",
-];
-
 export const ACHIEVEMENTS = [
-  "Top 10 Finalist – EdQuest Women Who Code Hackathon 2025, selected among national teams for building a scalable solution",
-  "Runner-up, VNPS Paper Presentation — Personalized Learning App for Autistic Children",
-  "Published 2 copyrights for innovative academic projects.",
-  "Developed scalable authentication service supporting multiple OAuth providers and OTP methods",
+  "Top 10 Finalist — EdQuest Women Who Code Hackathon 2025 for building a scalable technical solution.",
+  "Runner-up — VNPS Paper Presentation for research on a personalized learning application for autistic children.",
+  "Published two academic project copyrights.",
+  "Developed a scalable authentication microservice supporting OAuth providers and OTP-based authentication.",
 ];
