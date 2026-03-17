@@ -14,7 +14,7 @@ Modern developer portfolio built to showcase full-stack and backend systems proj
 
 ## Preview
 
-![Portfolio Preview](public/project/portfolio-preview.png)
+![Portfolio Preview](portfolio-preview.png)
 
 ---
 
